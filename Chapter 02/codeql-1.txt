@@ -1,0 +1,31 @@
+name: CodeQL analysis for Java
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: java
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+      with:
+        languages: java
+
+    - name: Analyze
+      uses: github/codeql-action/analyze@v2
+      with:
+        # Path to the CodeQL query to run
+        queries: path/to/query.ql
+        # Path to the CodeQL database built by autobuild
+        db-location: '${{ github.workspace }}/codeql-db' 
